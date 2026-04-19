@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login / Signup - Amazon Clone</title>
+    <link rel="stylesheet" href="styles/shared/general.css">
+    <style>
+        body {
+            background: linear-gradient(145deg, #fff9f0 0%, #fff2e0 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .auth-container {
+            max-width: 400px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 140, 66, 0.2);
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 40px;
+            border: 1px solid #ffd8b5;
+            background: white;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, #ffb347, #ff8c42);
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(255,140,66,0.4);
+        }
+        .toggle-link {
+            margin-top: 20px;
+            color: #ff8c42;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .toggle-link:hover {
+            text-decoration: underline;
+        }
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        h2 {
+            color: #ff8c42;
+        }
+    </style>
+</head>
+<body>
+<div class="auth-container">
+    <h2 id="form-title">Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="submit-btn">Login</button>
+    <div class="toggle-link" id="toggle-link">Need an account? Sign up</div>
+    <div id="message"></div>
+</div>
+
+<script>
+    const API_BASE = '';  // relative, will call /api/...
+
+    async function signup(email, password) {
+        const res = await fetch(`${API_BASE}/api/signup`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        return await res.json();
+    }
+
+    async function login(email, password) {
+        const res = await fetch(`${API_BASE}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        return await res.json();
+    }
+
+    let isLogin = true;
+    const title = document.getElementById('form-title');
+    const submitBtn = document.getElementById('submit-btn');
+    const toggleLink = document.getElementById('toggle-link');
+    const messageDiv = document.getElementById('message');
+
+    toggleLink.addEventListener('click', () => {
+        isLogin = !isLogin;
+        title.innerText = isLogin ? 'Login' : 'Sign Up';
+        submitBtn.innerText = isLogin ? 'Login' : 'Sign Up';
+        toggleLink.innerText = isLogin ? 'Need an account? Sign up' : 'Already have an account? Login';
+        messageDiv.innerText = '';
+    });
+
+    submitBtn.addEventListener('click', async () => {
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        if (!email || !password) {
+            messageDiv.innerText = 'Please fill both fields.';
+            messageDiv.style.color = 'red';
+            return;
+        }
+        let result;
+        if (isLogin) {
+            result = await login(email, password);
+        } else {
+            result = await signup(email, password);
+        }
+        if (result.error) {
+            messageDiv.innerText = result.error;
+            messageDiv.style.color = 'red';
+        } else {
+            messageDiv.innerText = 'Success! Redirecting...';
+            messageDiv.style.color = 'green';
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        }
+    });
+</script>
+</body>
+</html>
