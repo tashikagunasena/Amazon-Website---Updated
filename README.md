@@ -1,6 +1,9 @@
 # Amazon Clone – CS50 Final Project
 
-**Video Demo:**  [<https://youtu.be/your-video-link>  ](https://youtu.be/R6u7LjF5w9s?si=MbtYrTmb8qlxyC7f)
+**Video Demo:**
+
+Watch the project demo here:  
+https://youtu.be/R6u7LjF5w9s?si=U8QbzIStpj-zZkDT
 
 ## Overview
 
