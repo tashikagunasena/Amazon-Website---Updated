@@ -3,7 +3,7 @@
 **Video Demo:**
 
 Watch the project demo here:  
-https://youtu.be/R6u7LjF5w9s?si=U8QbzIStpj-zZkDT
+[https://youtu.be/R6u7LjF5w9s?si=U8QbzIStpj-zZkDT](https://youtu.be/kYXRDAVpxBA)
 
 ## Overview
 
