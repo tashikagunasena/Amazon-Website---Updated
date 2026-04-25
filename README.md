@@ -1,4 +1,4 @@
-# Amazon Clone – CS50 Final Project
+# Amazon Copy – CS50 Final Project
 
 **Video Demo:**
 
